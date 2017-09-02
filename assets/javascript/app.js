@@ -66,11 +66,19 @@ window.onload = function() {
 		},
 
 		updateHTML: function(currentQuestion) {
-  			$("<h2 #question>").html(this.questions[currentQuestion].question).appendTo(".q&a");
-  			$("#ansA").html(this.questions[currentQuestion].answerA);
-  			$("#ansB").html(this.questions[currentQuestion].answerB);
-  			$("#ansC").html(this.questions[currentQuestion].answerC);
-  			$("#ansD").html(this.questions[currentQuestion].answerD);
+  			$("#question").append('<h2/>').html(this.questions[currentQuestion].question);
+  			
+  			$("#buttonA").append('<input type="radio" value="A"/>');
+			$("#labelA").append('<label/>').html(this.questions[currentQuestion].answerA);
+  			
+  			$("#buttonB").append('<input type="radio" value="B"/>');
+			$("#labelB").append('<label/>').html(this.questions[currentQuestion].answerB);
+
+			$("#buttonC").append('<input type="radio" value="C"/>');
+			$("#labelC").append('<label/>').html(this.questions[currentQuestion].answerC);
+
+			$("#buttonD").append('<input type="radio" value="D"/>');
+			$("#labelD").append('<label/>').html(this.questions[currentQuestion].answerD);
 
   			$("#losses").html("Incorrect Answers: " + this.losses);
   			$("#wins").html("Correct Answers: " + this.wins);
