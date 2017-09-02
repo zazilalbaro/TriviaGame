@@ -1,62 +1,126 @@
 window.onload = function() {
 
-var game = {
+	var game = {
 
-	questionObj1 : {
-		question : "What is the name of Jon Snow's Direwolf?",
-		answerA : "White",
-		answerB : "Greyworm",
-		answerC : "Ghost",
-		answerD : "Frey",
-		correctAns : "C"
-	},
+		questions: [
 
-	questionObj2 : {
-		question : "What is the Lannister House sigil?",
-		answerA : "Wolf",
-		answerB : "Stag",
-		answerC : "Three-headed red dragon",
-		answerD : "Lion",
-		correctAns : "D"
-	},
-			
-	wins: 0,
-	losses: 0,
-	gameOn: false,
-	intervalId: null,
-	stopwatch : {
+			{
+				question: "What is the name of Jon Snow's Direwolf?",
+				answerA: "White",
+				answerB: "Greyworm",
+				answerC: "Ghost",
+				answerD: "Shadow",
+				correctAns: "C"
+			},
 
-		time : 30,
+			{
+				question: "What is the Lannister House sigil?",
+				answerA: "Wolf",
+				answerB: "Stag",
+				answerC: "Bear",
+				answerD: "Lion",
+				correctAns: "D"
+			},
+
+			{
+				question: "Who was the youngest Stark child?",
+				answerA: "Brandon",
+				answerB: "Arya",
+				answerC: "Rickon",
+				answerD: "Sansa",
+				correctAns: "C"
+			},
+
+			{
+				question: "Which castle belongs to House Frey?",
+				answerA: "The Twins",
+				answerB: "Highgarden",
+				answerC: "The Erie",
+				answerD: "Casterly Rock",
+				correctAns: "A"
+			}
+
+		],
+		
+		// questionsArr: ["questionObj1","questionObj2","questionObj3","questionObj4"],
+		currentQuestion: null,
+		wins: 0,
+		losses: 0,
+		gameOn: false,
+		intervalId: null,
 
 		start: function() {
-		    if (!game.gameOn) {
-		        game.intervalId = setInterval(game.stopwatch.count, 1000);
-		        game.gameOn = true;
+		    if (!this.gameOn) {
+		        this.intervalId = setInterval(this.stopwatch.count, 1000);
+		        this.stopwatch.start
+		        this.gameOn = true;
+		        this.currentQuestion = this.questions[0];
+		        console.log(this.currentQuestion)
+		        this.updateHTML(0);
 		    };
 		},
-		count: function() {
-    	    game.stopwatch.time--;
-		    $("#timer").html("Time left: " + game.stopwatch.time);
+
+		clickedAnswer: function(selectedAns) {
+
+
+		},
+
+		updateHTML: function(currentQuestion) {
+  			$("<h2 #question>").html(this.questions[currentQuestion].question).appendTo(".q&a");
+  			$("#ansA").html(this.questions[currentQuestion].answerA);
+  			$("#ansB").html(this.questions[currentQuestion].answerB);
+  			$("#ansC").html(this.questions[currentQuestion].answerC);
+  			$("#ansD").html(this.questions[currentQuestion].answerD);
+
+  			$("#losses").html("Incorrect Answers: " + this.losses);
+  			$("#wins").html("Correct Answers: " + this.wins);
+
+  			$("#timer").html("Time left: " + this.stopwatch.time);
   		},
-  		stop: function(intervalId) {
-  			game.losses++;
-  			clearInterval(game.intervalId);
-  			clearTimeout(game.stopwatch.time);
-   			game.gameOn = false;
-  		},
-  		timeout: setTimeout(function(){
-        
-      }, 0);
-	}
+
+		stopwatch: {
+
+			time: 30,
+
+			
+			count: function() {
+	    	    this.time--;
+			    $("#timer").html("Time left: " + this.time);
+	  		},
+
+	  		stop: function(time, intervalId) {
+	  			game.losses++;
+	  			clearInterval(game.intervalId);
+	  			timeout(this.time);
+	   			game.gameOn = false;
+	  		},
+	  	},
+	  		// timeout: setTimeout(() {
+	        
+	    //   	}, 0),
+
+  	}; // end of object
 
 
-}; // end of object
 
+	$("#start").on("click", function() {
+		game.start();
+	});
 
+	$("input").on("click", function(){
+	    selectedAns = $("input:radio[name='choices']:checked").val();
+	    clickedAnswer(selectedAns);
+	});
 
-$("#start").on("click", game.stopwatch.start);
+	$("input:radio[name='choices']:checked").val();
 
+// when the time runs out
+	// stop the timer
+	// losses++
+	// call next question
 
+// when the user selects an answer
+	// 
 
 
 
