@@ -1,4 +1,4 @@
-
+window.onload = function() {
 
 	var game = {
 
@@ -43,7 +43,7 @@
 		],
 		
 		currentQuestion: null,
-		qNumber: 0,
+		qNumber: -1,
 		wins: 0,
 		losses: 0,
 		gameOn: false,
@@ -54,46 +54,72 @@
 		    if (!this.gameOn) {
 		        this.newQuestion();
 		        this.gameOn = true;
-		        this.currentQuestion = this.questions[this.qNumber];
+		        // this.currentQuestion = this.questions[this.qNumber];
 		    };
 		},
 
 		clickedAnswer: function(selectedAns) {
-
-			setTimeout(function() {
-    			this.newQuestion();
- 			}, 5000);
+			console.log(this.questions[this.qNumber].correctAns);
+			if (selectedAns == this.questions[this.qNumber].correctAns) {
+				this.wins++;
+			}
+			else {
+				this.losses++;
+			};
+			
+			this.updateHTML(this.qNumber);
+			// setTimeout(function() {
+    			game.newQuestion();
+ 			// }, 3000);
+ 			
 		},
 
 		newQuestion: function() {
 			this.qNumber++;
-			this.updateHTML(this.qNumber);
-			
-			setInterval(function() {
-				if (game.time == 0) {
-					clearInterval(countdown);
+			console.log(this.questions.length);
+			if (this.qNumber == this.questions.length) {
+				this.endGame();
+			}
+			else {
+				console.log(this.qNumber);
+				this.updateHTML(this.qNumber);
+				// this.time = 30
+				// setInterval(function() {
+				// 	if (this.time == 0) {
+				// 		clearInterval();
 
-					setTimeout(function() {
-		    			this.newQuestion();
-		 			}, 5000);;
-				}
-	    		$("#timer").html("Seconds left: " + this.time);
-			}, 1000);
+				// 		setTimeout(function() {
+			 // 			this.newQuestion();
+			 // 			}, 3000);;
+				// 	}
+				// 	else {
+				// 		this.time--;
+				// 	}
+		  //   		$("#timer").html("Seconds left: " + this.time);
+				// }, 1000);	
+			}
+
+		},
+
+		endGame: function() {
+			alert("Game Over!");
 		},
 
 		updateHTML: function(currentQuestion) {
+			console.log(currentQuestion);
+			$(".stuff").empty();
   			$("#question").append('<h2/>').html(this.questions[currentQuestion].question);
   			
-  			$("#buttonA").append('<input type="radio" value="A"/>');
+  			$("#buttonA").append('<input type="radio" name="choices" value="A"/>');
 			$("#labelA").append('<label/>').html(this.questions[currentQuestion].answerA);
   			
-  			$("#buttonB").append('<input type="radio" value="B"/>');
+  			$("#buttonB").append('<input type="radio" name="choices" value="B"/>');
 			$("#labelB").append('<label/>').html(this.questions[currentQuestion].answerB);
 
-			$("#buttonC").append('<input type="radio" value="C"/>');
+			$("#buttonC").append('<input type="radio" name="choices" value="C"/>');
 			$("#labelC").append('<label/>').html(this.questions[currentQuestion].answerC);
 
-			$("#buttonD").append('<input type="radio" value="D"/>');
+			$("#buttonD").append('<input type="radio" name="choices" value="D"/>');
 			$("#labelD").append('<label/>').html(this.questions[currentQuestion].answerD);
 
   			$("#losses").html("Incorrect Answers: " + this.losses);
@@ -107,30 +133,30 @@
   	}; // end of game obj
 
 
-window.onload = function() {
+
 
 	$("#start").on("click", function() {
 		game.start();
-
-		
-
 	});
 
-	$("input").on("click", function(){
+	$("div").on("click", "input", function(){
 	    selectedAns = $("input:radio[name='choices']:checked").val();
-	    clickedAnswer(selectedAns);
+	    console.log(selectedAns);
+	    game.clickedAnswer(selectedAns);
 	});
+
+
 
 
 	// stopwatch
 
 
-	var stop = function() {
-		game.losses++;
-		clearInterval(game.intervalId);
-		clearTimer
-		game.gameOn = false;
-	};
+	// var stop = function() {
+	// 	game.losses++;
+	// 	clearInterval(game.intervalId);
+	// 	clearTimer
+	// 	game.gameOn = false;
+	// };
 
 
 }; // end of js	        
