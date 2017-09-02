@@ -1,4 +1,4 @@
-window.onload = function() {
+
 
 	var game = {
 
@@ -42,27 +42,43 @@ window.onload = function() {
 
 		],
 		
-		// questionsArr: ["questionObj1","questionObj2","questionObj3","questionObj4"],
 		currentQuestion: null,
+		qNumber: 0,
 		wins: 0,
 		losses: 0,
 		gameOn: false,
 		intervalId: null,
+		time: 30,
 
 		start: function() {
 		    if (!this.gameOn) {
-		        this.intervalId = setInterval(this.stopwatch.count, 1000);
-		        this.stopwatch.start
+		        this.newQuestion();
 		        this.gameOn = true;
-		        this.currentQuestion = this.questions[0];
-		        console.log(this.currentQuestion)
-		        this.updateHTML(0);
+		        this.currentQuestion = this.questions[this.qNumber];
 		    };
 		},
 
 		clickedAnswer: function(selectedAns) {
 
+			setTimeout(function() {
+    			this.newQuestion();
+ 			}, 5000);
+		},
 
+		newQuestion: function() {
+			this.qNumber++;
+			this.updateHTML(this.qNumber);
+			
+			setInterval(function() {
+				if (game.time == 0) {
+					clearInterval(countdown);
+
+					setTimeout(function() {
+		    			this.newQuestion();
+		 			}, 5000);;
+				}
+	    		$("#timer").html("Seconds left: " + this.time);
+			}, 1000);
 		},
 
 		updateHTML: function(currentQuestion) {
@@ -83,36 +99,21 @@ window.onload = function() {
   			$("#losses").html("Incorrect Answers: " + this.losses);
   			$("#wins").html("Correct Answers: " + this.wins);
 
-  			$("#timer").html("Time left: " + this.stopwatch.time);
+  			$("#timer").html("Seconds left: " + this.time);
   		},
 
-		stopwatch: {
+		
 
-			time: 30,
-
-			
-			count: function() {
-	    	    this.time--;
-			    $("#timer").html("Time left: " + this.time);
-	  		},
-
-	  		stop: function(time, intervalId) {
-	  			game.losses++;
-	  			clearInterval(game.intervalId);
-	  			timeout(this.time);
-	   			game.gameOn = false;
-	  		},
-	  	},
-	  		// timeout: setTimeout(() {
-	        
-	    //   	}, 0),
-
-  	}; // end of object
+  	}; // end of game obj
 
 
+window.onload = function() {
 
 	$("#start").on("click", function() {
 		game.start();
+
+		
+
 	});
 
 	$("input").on("click", function(){
@@ -120,7 +121,21 @@ window.onload = function() {
 	    clickedAnswer(selectedAns);
 	});
 
-	$("input:radio[name='choices']:checked").val();
+
+	// stopwatch
+
+
+	var stop = function() {
+		game.losses++;
+		clearInterval(game.intervalId);
+		clearTimer
+		game.gameOn = false;
+	};
+
+
+}; // end of js	        
+
+	
 
 // when the time runs out
 	// stop the timer
@@ -143,4 +158,3 @@ window.onload = function() {
 
 
 
-}; // end of js
