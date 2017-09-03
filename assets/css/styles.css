@@ -9,3 +9,13 @@ h2 {
 #start {
 	margin-top: 25px;
 }
+
+.goodColor {
+	color: #00cc44;
+	font-weight: bold;
+}
+
+.badColor {
+	color: #ff0000;
+	font-weight: bold;
+}

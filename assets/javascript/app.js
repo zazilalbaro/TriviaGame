@@ -62,16 +62,29 @@ window.onload = function() {
 			console.log(this.questions[this.qNumber].correctAns);
 			if (selectedAns == this.questions[this.qNumber].correctAns) {
 				this.wins++;
+				$("#label" + selectedAns).addClass("goodColor");
+				$("#wins").addClass("goodColor");
+
+				this.updateHTML(this.qNumber);
+				setTimeout(function() {
+					$("#label" + selectedAns).removeClass("goodColor");
+					$("#wins").removeClass("goodColor");
+	    			game.newQuestion();
+	 			}, 3000);
+ 			
 			}
 			else {
 				this.losses++;
-			};
-			
-			this.updateHTML(this.qNumber);
-			// setTimeout(function() {
-    			game.newQuestion();
- 			// }, 3000);
- 			
+				$("#label" + selectedAns).addClass("badColor");
+				$("#losses").addClass("badColor");
+		
+				this.updateHTML(this.qNumber);
+				setTimeout(function() {
+					$("#label" + selectedAns).removeClass("badColor");
+					$("#losses").removeClass("badColor");
+	    			game.newQuestion();
+	 			}, 3000);
+ 			};
 		},
 
 		newQuestion: function() {
