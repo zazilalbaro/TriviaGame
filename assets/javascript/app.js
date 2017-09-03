@@ -124,7 +124,7 @@ window.onload = function() {
 			$(".stuff").empty();
 			$("#losses").html("Incorrect Answers: " + this.losses);
   			$("#wins").html("Correct Answers: " + this.wins);
-  			$("#timer").html("Seconds left: " + this.time);
+  			$("#timer").html("Seconds for each question: 30");
 		},
 
 		updateHTML: function(currentQuestion) {
