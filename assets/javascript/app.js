@@ -59,16 +59,16 @@ window.onload = function() {
 		},
 
 		clickedAnswer: function(selectedAns) {
-			console.log(this.questions[this.qNumber].correctAns);
+			console.log("clicked corr answer" + this.questions[this.qNumber].correctAns);
 			if (selectedAns == this.questions[this.qNumber].correctAns) {
 				this.wins++;
 				$("#label" + selectedAns).addClass("goodColor");
 				$("#wins").addClass("goodColor");
 
-				this.updateHTML(this.qNumber);
 				setTimeout(function() {
 					$("#label" + selectedAns).removeClass("goodColor");
 					$("#wins").removeClass("goodColor");
+					
 	    			game.newQuestion();
 	 			}, 3000);
  			
@@ -79,24 +79,26 @@ window.onload = function() {
 				$("#losses").addClass("badColor");
 				$("#label" + this.questions[this.qNumber].correctAns).addClass("goodColor");
 		
-				this.updateHTML(this.qNumber);
 				setTimeout(function() {
 					$("#label" + selectedAns).removeClass("badColor");
 					$("#losses").removeClass("badColor");
-					$("#label" + this.questions[this.qNumber].correctAns).removeClass("goodColor");
+					$("#label" + game.questions[game.qNumber].correctAns).removeClass("goodColor");
+	    			
 	    			game.newQuestion();
 	 			}, 3000);
  			};
+ 			
+ 			this.updateHTML(this.qNumber);
 		},
 
 		newQuestion: function() {
 			this.qNumber++;
-			console.log(this.questions.length);
+			console.log("nq questions length" + this.questions.length);
 			if (this.qNumber == this.questions.length) {
 				this.endGame();
 			}
 			else {
-				console.log(this.qNumber);
+				console.log("nq else this question number" + this.qNumber);
 				this.updateHTML(this.qNumber);
 				// this.time = 30
 				// setInterval(function() {
@@ -121,7 +123,7 @@ window.onload = function() {
 		},
 
 		updateHTML: function(currentQuestion) {
-			console.log(currentQuestion);
+			console.log("update HTML current question" + currentQuestion);
 			$(".stuff").empty();
   			$("#question").append('<h2/>').html(this.questions[currentQuestion].question);
   			
@@ -156,7 +158,7 @@ window.onload = function() {
 
 	$("div").on("click", "input", function(){
 	    selectedAns = $("input:radio[name='choices']:checked").val();
-	    console.log(selectedAns);
+	    console.log("onclick sel ans" + selectedAns);
 	    game.clickedAnswer(selectedAns);
 	});
 
