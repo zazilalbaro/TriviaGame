@@ -77,11 +77,13 @@ window.onload = function() {
 				this.losses++;
 				$("#label" + selectedAns).addClass("badColor");
 				$("#losses").addClass("badColor");
+				$("#label" + this.questions[this.qNumber].correctAns).addClass("goodColor");
 		
 				this.updateHTML(this.qNumber);
 				setTimeout(function() {
 					$("#label" + selectedAns).removeClass("badColor");
 					$("#losses").removeClass("badColor");
+					$("#label" + this.questions[this.qNumber].correctAns).removeClass("goodColor");
 	    			game.newQuestion();
 	 			}, 3000);
  			};
