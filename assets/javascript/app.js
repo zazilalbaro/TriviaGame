@@ -52,9 +52,9 @@ window.onload = function() {
 
 		start: function() {
 		    if (!this.gameOn) {
+		    	this.qNumber = -1;
 		        this.newQuestion();
 		        this.gameOn = true;
-		        // this.currentQuestion = this.questions[this.qNumber];
 		    };
 		},
 
@@ -120,6 +120,11 @@ window.onload = function() {
 
 		endGame: function() {
 			alert("Game Over!");
+			this.gameOn = false;
+			$(".stuff").empty();
+			$("#losses").html("Incorrect Answers: " + this.losses);
+  			$("#wins").html("Correct Answers: " + this.wins);
+  			$("#timer").html("Seconds left: " + this.time);
 		},
 
 		updateHTML: function(currentQuestion) {
@@ -183,6 +188,7 @@ window.onload = function() {
 // when the time runs out
 	// stop the timer
 	// losses++
+	// show correct ans
 	// call next question
 
 // when the user selects an answer
