@@ -167,12 +167,22 @@ window.onload = function() {
 		},
 
 		endGame: function() {
-			alert("Game Over!");
 			this.gameOn = false;
 			$(".stuff").empty();
 			$("#losses").html("Incorrect Answers: " + this.losses);
   			$("#wins").html("Correct Answers: " + this.wins);
-  			$("#timer").html("Seconds for each question: 30");
+  			if (this.wins == 10) {
+  				$("#timer").html("Perfect score! The throne is yours.");
+  			}
+  			else if (this.wins > 7) {
+  				$("#timer").html("You got " + this.wins + " out of 10. So close to the throne, but Arya still got you. Try again!");
+  			}
+  			else if (this.wins > 4) {
+  				$("#timer").html("You got " + this.wins + " out of 10. Not bad, but you were betrayed by your bannermen. Try again!");
+  			}
+  			else {
+  			$("#timer").html("You got " + this.wins + " out of 10. You died quicker than Renly Baratheon. Try again!");
+  			}
 		},
 
 		updateHTML: function(currentQuestion) {
