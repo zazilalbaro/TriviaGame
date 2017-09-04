@@ -92,7 +92,7 @@ window.onload = function() {
 				answerC: "Rhaegar Targaryen and Lyanna Stark",
 				answerD: "Aerys Targayen and Elia Martell",
 				correctAns: "C"
-			},
+			}
 		],
 		
 		currentQuestion: null,
@@ -226,7 +226,7 @@ window.onload = function() {
 	    }
 
 		game.intId = setTimeout(function(){
-		 	timedOut();  // i don't really get why
+		 	timedOut();  
 		},ms);
 	}
 
